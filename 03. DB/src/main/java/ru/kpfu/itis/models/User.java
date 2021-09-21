@@ -1,10 +1,16 @@
 package ru.kpfu.itis.models;
 
+import java.util.List;
+
 public class User {
     private Long id;
     private String lastName;
     private String firstName;
     private String email;
+
+    private List<Post> posts;
+
+    private List<Post> favouritePosts;
 
     public User() {
     }
