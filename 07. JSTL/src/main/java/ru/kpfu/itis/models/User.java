@@ -6,6 +6,7 @@ public class User {
     private String passwordHash;
     private String lastName;
     private String firstName;
+    private Post post;
 
     public Long getId() {
         return id;
@@ -47,4 +48,11 @@ public class User {
         this.firstName = firstName;
     }
 
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }

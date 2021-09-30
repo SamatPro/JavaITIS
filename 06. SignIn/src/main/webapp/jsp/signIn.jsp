@@ -20,6 +20,7 @@
 
     <p><button type="submit">Вход</button></p><br>
 </form>
+<h3>${signInStatus}</h3>
 
 </body>
 </html>
