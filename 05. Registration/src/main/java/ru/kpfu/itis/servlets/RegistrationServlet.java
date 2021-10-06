@@ -22,12 +22,16 @@ public class RegistrationServlet extends HttpServlet {
 
     private UsersService usersService;
 
+    private final String DB_URL = "jdbc:postgresql://localhost:5435/postgres";
+    private final String DB_USERNAME = "postgres";
+    private final String DB_PASSWORD = "postgres";
+
     @Override
     public void init() throws ServletException {
         try {
             //Подгружаем драйвер, оно автоматически регистрирует JDBC
             Class.forName("org.postgresql.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5435/postgres", "postgres", "postgres");
+            Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
             UsersRepository usersRepository = new UsersRepositoryImpl(connection);
             usersService = new UsersServicesImpl(usersRepository);

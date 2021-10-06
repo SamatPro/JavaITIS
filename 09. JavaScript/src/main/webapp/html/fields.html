@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fields</title>
+    <script src="../javascript/main.js"></script>
+    <script src="../javascript/main2.js"></script>
+</head>
+<body>
+<form>
+    <p><b>Пароль:</b><br>
+        <input id="password" type="text" size="40">
+    </p>
+    <p><b>Проверка пароля:</b><br>
+        <input id="confirmPassword" type="text" size="40">
+    </p>
+    <p>Комментарий<Br>
+        <textarea name="comment"  id="comment" cols="40" rows="3"></textarea></p>
+
+    <p>
+        <button type="button" onclick="validatePassword()">Отправить!</button>
+</form>
+
+<div id="passwordStatus"></div>
+
+</body>
+</html>
