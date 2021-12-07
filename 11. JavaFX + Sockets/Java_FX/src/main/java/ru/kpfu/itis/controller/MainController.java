@@ -5,11 +5,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import ru.kpfu.itis.enums.Action;
+import ru.kpfu.itis.protocol.Message;
+import ru.kpfu.itis.protocol.MessageType;
 import ru.kpfu.itis.sockets.ClientSocket;
 import ru.kpfu.itis.util.GameUtils;
 
@@ -27,7 +33,13 @@ public class MainController implements Initializable {
     private static final String PLAYER_ICON = "src/main/resources/img/img.png";
 
     @FXML
-    private Button helloButton;
+    private Button connectButton;
+
+    @FXML
+    private AnchorPane gameArea;
+
+    @FXML
+    private TextField name;
 
     @FXML
     private Label helloLabel;
@@ -38,11 +50,24 @@ public class MainController implements Initializable {
     @FXML
     private ImageView enemy;
 
+    @FXML
+    private ScrollPane messagesArea;
+
+    @FXML
+    private VBox messages;
+
+    @FXML
+    private VBox messageControl;
+
+    @FXML
+    private TextField messageText;
+
+    @FXML
+    private Button sendMessageButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gameUtils = new GameUtils();
-        clientSocket = new ClientSocket();
-        clientSocket.connect();
         try {
             Image playerIcon = new Image(new FileInputStream(PLAYER_ICON));
 
@@ -53,8 +78,14 @@ public class MainController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        helloButton.setOnAction(event -> {
-            helloLabel.setText("Привет, игрок!");
+        connectButton.setOnMouseClicked(event -> {
+            String nickname = name.getText();
+            helloLabel.setText("Привет, " + nickname);
+            connectButton.setDisable(true);
+            name.setEditable(false);
+            clientSocket = new ClientSocket();
+            clientSocket.connect(nickname);
+
         });
     }
 

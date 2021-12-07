@@ -12,11 +12,35 @@
             fx:controller="ru.kpfu.itis.controller.MainController"
             prefHeight="400.0" prefWidth="600.0">
 
-        <children>
-                <Button fx:id="helloButton" text="Привет!" layoutX="523.0" layoutY="14.0" />
-                <Label fx:id="helloLabel" text="?" layoutX="523.0" layoutY="82.0"/>
-                <ImageView fx:id="player" layoutX="250.0" layoutY="450.0" fitWidth="50.0" fitHeight="50.0"/>
-                <ImageView fx:id="enemy" layoutX="250.0" layoutY="50.0" fitWidth="50.0" fitHeight="50.0"/>
-        </children>
+        <HBox>
+                <AnchorPane fx:id="gameArea" minWidth="800.0" minHeight="800.0" style="-fx-background-image:  url('file:C:/Users/Samat/Desktop/Themes/Java_FX/src/main/resources/img/field.png'); -fx-background-size: 100% 100%; ">
+                        <ImageView fx:id="player" layoutX="400.0" layoutY="650.0" fitWidth="50.0" fitHeight="50.0"/>
+                        <ImageView fx:id="enemy" layoutX="400.0" layoutY="50.0" fitWidth="50.0" fitHeight="50.0"/>
+                </AnchorPane>
+                <AnchorPane minWidth="410.0">
+                        <VBox layoutY="30.0">
+                                <children>
+                                        <HBox>
+                                                <Label text="Введите свое имя: "/>
+                                                <TextField fx:id="name"/>
+                                        </HBox>
+                                        <Button fx:id="connectButton" text="Начать игру!"/>
+                                        <Label fx:id="helloLabel" text=""/>
+                                </children>
+                        </VBox>
+                        <ScrollPane fx:id="messagesArea" minWidth="400" minHeight="500"
+                                    maxWidth="400" maxHeight="500" layoutY="120.0">
+                                <VBox fx:id="messages">
+                                        <children/>
+                                </VBox>
+                        </ScrollPane>
+                        <VBox fx:id="messageControl" layoutY="630.0">
+                                <HBox>
+                                        <TextField fx:id="messageText" minWidth="400" accessibleText="Введите сообщение"/>
+                                </HBox>
+                                <Button fx:id="sendMessageButton" text="Отправить сообщение"/>
+                        </VBox>
+                </AnchorPane>
+        </HBox>
 
 </AnchorPane>

@@ -1,5 +1,7 @@
 package ru.kpfu.itis;
 
+import ru.kpfu.itis.sockets.GameServer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +12,9 @@ public class ServerApp {
 
     public static void main(String[] args) {
 
-        try {
+        GameServer gameServer = GameServer.getInstance();
+        gameServer.start();
+        /*try {
             ServerSocket serverSocket = new ServerSocket(8888);
             Socket socket = serverSocket.accept();
             while (true) {
@@ -20,6 +24,6 @@ public class ServerApp {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
