@@ -78,13 +78,16 @@ public class MainController implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        sendMessageButton.setOnMouseClicked(event -> {
+            sendMessage();
+        });
         connectButton.setOnMouseClicked(event -> {
             String nickname = name.getText();
             helloLabel.setText("Привет, " + nickname);
             connectButton.setDisable(true);
             name.setEditable(false);
             clientSocket = new ClientSocket();
-            clientSocket.connect(nickname);
+            clientSocket.connect(this, nickname);
 
         });
     }
@@ -93,20 +96,45 @@ public class MainController implements Initializable {
         switch (event.getCode()) {
             case RIGHT: {
                 gameUtils.goRight(player);
-                clientSocket.sendMessage(Action.RIGHT.getCode());
+                Message message = new Message();
+                message.setType(MessageType.ACTION);
+                message.setBody(Action.RIGHT.getTitle());
+                clientSocket.sendMessage(message);
+
                 System.out.println(Action.RIGHT.getDescription());
                 break;
             }
             case LEFT: {
                 gameUtils.goLeft(player);
-                clientSocket.sendMessage(Action.LEFT.getCode());
+                Message message = new Message();
+                message.setType(MessageType.ACTION);
+                message.setBody(Action.LEFT.getTitle());
+                clientSocket.sendMessage(message);
+
                 System.out.println(Action.LEFT.getDescription());
                 break;
             }
-            case SPACE: {
-                gameUtils.shoot(player);
-                clientSocket.sendMessage(Action.SHOOT.getCode());
+            case ALT_GRAPH: {
+                GameUtils.shoot(player, enemy, gameArea, false);
+                Message message = new Message();
+                message.setType(MessageType.ACTION);
+                message.setBody(Action.SHOOT.getTitle());
+                clientSocket.sendMessage(message);
                 System.out.println(Action.SHOOT.getDescription());
+                break;
+
+               /* gameUtils.shoot(player);
+                Message message = new Message();
+                message.setType(MessageType.ACTION);
+                message.setBody(Action.SHOOT.getTitle());
+                clientSocket.sendMessage(message);*/
+
+//                System.out.println(Action.SHOOT.getDescription());
+//                break;
+            }
+            case ENTER: {
+                sendMessage();
+                break;
             }
             case ESCAPE: {
                 //TODO выход из игры
@@ -117,5 +145,23 @@ public class MainController implements Initializable {
 
     public EventHandler<KeyEvent> getPlayerControlEvent() {
         return playerControlEvent;
+    }
+
+    private void sendMessage() {
+        String chatText = messageText.getText();
+        messageText.clear();
+        Message message = new Message();
+        message.setType(MessageType.CHAT);
+        message.setBody(chatText);
+        clientSocket.sendMessage(message);
+        Label label = new Label();
+        //label.setStyle("-fx-font: Corier new");
+        label.setText("Я: " + chatText);
+
+        messages.getChildren().add(label);
+    }
+
+    public VBox getMessages() {
+        return messages;
     }
 }

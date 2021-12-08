@@ -47,6 +47,9 @@ public class GameServer {
         } catch (IOException e) {
             //console log
         }
+    }
 
+    public List<Client> getClients() {
+        return clients;
     }
 }
